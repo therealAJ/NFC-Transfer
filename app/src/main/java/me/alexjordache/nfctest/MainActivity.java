@@ -67,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
         if(intent.hasExtra(NfcAdapter.EXTRA_TAG)) {
             Toast.makeText(this, "NfcIntent!", Toast.LENGTH_LONG).show();
 
+            // IF READ IS SELECTED
             if(tglReadWrite.isChecked()) {
                 Parcelable[] parcelables = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
 
@@ -153,7 +154,6 @@ public class MainActivity extends AppCompatActivity {
                 return;
             }
         // If not null, proceed to get the tag
-
             Ndef ndef = Ndef.get(tag);
 
             if(ndef == null) {
