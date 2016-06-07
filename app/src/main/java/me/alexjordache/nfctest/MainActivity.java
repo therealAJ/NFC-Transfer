@@ -109,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    
+
     private void enableForegroundDispatchSystem() {
 
         Intent intent = new Intent(this, MainActivity.class).addFlags(Intent.FLAG_RECEIVER_REPLACE_PENDING);
