@@ -65,8 +65,6 @@ proguard/
 # Other Misc. files
 #############################################################################
 
-# Temp files for KDE and other Editor's 
-*~
 
 #############################################################################
 # Android Studio related files

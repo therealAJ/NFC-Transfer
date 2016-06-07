@@ -24,9 +24,16 @@ import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
+    // Class Objects
+
     NfcAdapter nfcAdapter;
     ToggleButton tglReadWrite;
     EditText txtTagContent;
+
+
+    /*
+    onCreate - sets the content view with the main XML, sets Class objects to elements on XML, and checks whether or not NFC is enabled
+     */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,17 +55,19 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
         enableForegroundDispatchSystem();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-
         disableForegroundDispatchSystem();
     }
 
+
+    /*
+    Creates new NFC Intent, and determines whether Read/Write is checked, then proceeds to read or write message to tag
+     */
 
     @Override
     protected void onNewIntent(Intent intent) {
@@ -66,22 +75,17 @@ public class MainActivity extends AppCompatActivity {
 
         if(intent.hasExtra(NfcAdapter.EXTRA_TAG)) {
             Toast.makeText(this, "NfcIntent!", Toast.LENGTH_LONG).show();
-
             // IF READ IS SELECTED
             if(tglReadWrite.isChecked()) {
                 Parcelable[] parcelables = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
-
                 if (parcelables != null && parcelables.length > 0){
                     readTextFromMessage((NdefMessage) parcelables[0]);
                 }
             } else {
                 Toast.makeText(this, "No NDEF messages found!", Toast.LENGTH_SHORT).show();
-
             }
-
             Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
             NdefMessage ndefMessage = createNdefMessage(txtTagContent.getText() + "");
-
             writeNdefMessage(tag, ndefMessage);
         }
     }
@@ -105,8 +109,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
-
+    
     private void enableForegroundDispatchSystem() {
 
         Intent intent = new Intent(this, MainActivity.class).addFlags(Intent.FLAG_RECEIVER_REPLACE_PENDING);
